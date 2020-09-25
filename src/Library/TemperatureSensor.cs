@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace Observer
 {
-    public class TemperatureSensor : IObservable
+    public class TemperatureSensor : IObservable<Temperature>
     {
-        List<IObserver> observers = new List<IObserver>();
+        List<IObserver<Temperature>> observers = new List<IObserver<Temperature>>();
 
         public Temperature Current { get; private set; }
 
-        public void Subscribe(IObserver observer)
+        public void Subscribe(IObserver<Temperature> observer)
         {
             if (! observers.Contains(observer))
             {
@@ -18,7 +18,7 @@ namespace Observer
             }
         }
 
-        public void Unsubscribe(IObserver observer)
+        public void Unsubscribe(IObserver<Temperature> observer)
         {
             if (observers.Contains(observer))
             {
@@ -26,7 +26,7 @@ namespace Observer
             }
         }
 
-        public void GetTemperature()
+        public void Notify()
         {
             // Create an array of sample data to mimic a temperature device.
             Nullable<Decimal>[] temps = {14.6m, 14.65m, 14.7m, 14.9m, 14.9m, 15.2m, 15.25m, 15.2m, 15.4m, 15.45m };
